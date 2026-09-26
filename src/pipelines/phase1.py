@@ -1,4 +1,5 @@
 from __future__ import annotations
+from datetime import UTC, datetime
 
 from core.config import load_settings, require_llm_credentials
 from evaluation.metrics import evaluate_pipeline
@@ -42,7 +43,7 @@ def main() -> None:
         print("📥 Loading raw records from JSON...")
         records = load_raw_records(settings.paths.raw_records_json)
     
-    clean_df = build_clean_dataframe(records, run_date=None)
+    clean_df = build_clean_dataframe(records, run_date=datetime.now(UTC))
     
     print(f"✅ Đã clean xong dữ liệu, tổng số bản ghi: {len(clean_df)}")
     
@@ -57,7 +58,7 @@ def main() -> None:
 
     print(f"✅ Đã build xong Vector Index tại: {settings.paths.chroma_dir}")
 
-    if settings.refresh_test_set:
+    if settings.refresh_test_set or not settings.paths.eval_testset.exists():
         from evaluation.testset import build_test_set
         build_test_set(clean_df, settings.paths.eval_testset)
         print(f"✅ Đã tạo xong evaluation set tại: {settings.paths.eval_testset}")

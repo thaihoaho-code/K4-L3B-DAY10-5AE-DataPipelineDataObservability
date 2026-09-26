@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-26T04:36:28.301132+00:00",
+  "input_rows": 24,
+  "output_rows": 20,
+  "unique_output_paper_ids": 19,
+  "scenarios": [
+    {
+      "name": "drop_latest_records",
+      "affected_count": 5,
+      "affected_paper_ids": [
+        "10.21203/rs.3.rs-10489777/v1",
+        "10.70267/aitia.2026482489",
+        "10.21203/rs.3.rs-10349437/v1",
+        "10.54254/2755-2721/2026.36624",
+        "10.36887/2415-8453-2026-3-2"
+      ],
+      "parameters": {
+        "fraction": 0.2,
+        "selection": "latest published records"
+      }
+    },
+    {
+      "name": "blank_summary",
+      "affected_count": 2,
+      "affected_paper_ids": [
+        "10.1007/s10278-026-02086-9",
+        "10.1093/sleep/zsag091.0346"
+      ],
+      "parameters": {
+        "fraction_of_remaining": 0.1,
+        "replacement": ""
+      }
+    },
+    {
+      "name": "inject_noise",
+      "affected_count": 2,
+      "affected_paper_ids": [
+        "10.20944/preprints202604.0339.v1",
+        "10.20944/preprints202608.1849.v1"
+      ],
+      "parameters": {
+        "fraction_of_remaining": 0.1,
+        "marker": "<<NOISE::@@##%%>>"
+      }
+    },
+    {
+      "name": "truncate_title",
+      "affected_count": 2,
+      "affected_paper_ids": [
+        "10.21079/11681/50309",
+        "10.2118/234689-pa"
+      ],
+      "parameters": {
+        "fraction_of_remaining": 0.1,
+        "max_length": 7
+      }
+    },
+    {
+      "name": "stale_date",
+      "affected_count": 2,
+      "affected_paper_ids": [
+        "10.21203/rs.3.rs-10012178/v1",
+        "10.21203/rs.3.rs-10178277/v1"
+      ],
+      "parameters": {
+        "fraction_of_remaining": 0.1,
+        "days_back": 365,
+        "replacement_date": "2025-09-26"
+      }
+    },
+    {
+      "name": "duplicate_rows",
+      "affected_count": 1,
+      "affected_paper_ids": [
+        "10.21203/rs.3.rs-10423755/v1"
+      ],
+      "parameters": {
+        "rows_added": 1,
+        "mode": "exact row copy"
+      }
+    }
+  ],
+  "scenario_names": [
+    "drop_latest_records",
+    "blank_summary",
+    "inject_noise",
+    "truncate_title",
+    "stale_date",
+    "duplicate_rows"
+  ]
+}
