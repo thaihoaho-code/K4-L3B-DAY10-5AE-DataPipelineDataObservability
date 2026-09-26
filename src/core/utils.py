@@ -50,3 +50,11 @@ def compact_join(items: Iterable[str], sep: str = ", ") -> str:
 def first_sentence(text: str) -> str:
     chunks = re.split(r"(?<=[.!?])\s+", normalize_whitespace(text))
     return chunks[0] if chunks else normalize_whitespace(text)
+
+def save_dataframe_to_csv(df, path: Path) -> None:
+    ensure_parent(path)
+    df.to_csv(path, index=False)
+
+def save_dataframe_to_json(df, path: Path) -> None:
+    ensure_parent(path)
+    df.to_json(path, orient="records", force_ascii=True)
